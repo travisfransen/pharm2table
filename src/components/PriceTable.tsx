@@ -1,6 +1,10 @@
 import { PriceTier } from '../lib/types'
 
-export default function PriceTable({ prices }: { prices: PriceTier[] }) {
+export default function PriceTable({ prices }: { prices?: PriceTier[] }) {
+  if (!prices || prices.length === 0) {
+    return <div className="p-4 text-sm text-gray-600">No pricing available</div>
+  }
+
   return (
     <table className="w-full table-auto border-collapse">
       <thead>
@@ -11,9 +15,9 @@ export default function PriceTable({ prices }: { prices: PriceTier[] }) {
       </thead>
       <tbody>
         {prices.map((p) => (
-          <tr key={p.id}>
+          <tr key={p.id ?? p.name}>
             <td className="p-2 border-b">{p.name}</td>
-            <td className="p-2 border-b text-right">${p.unitPrice.toFixed(2)}</td>
+            <td className="p-2 border-b text-right">{typeof p.unitPrice === 'number' ? `$${p.unitPrice.toFixed(2)}` : '—'}</td>
           </tr>
         ))}
       </tbody>

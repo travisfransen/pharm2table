@@ -1,9 +1,10 @@
 import { Vendor } from '../types'
 
 export function calculateMonthlyCost(vendor: Vendor, quantityPerMonth: number) {
-  // Sum unitPrice for a canonical medication (first price) times quantity
-  const item = vendor.prices[0]
-  const base = item ? item.unitPrice * quantityPerMonth : 0
+  // Safely handle vendors without prices or with missing unitPrice
+  const item = vendor.prices && vendor.prices.length > 0 ? vendor.prices[0] : undefined
+  const unitPrice = item && typeof item.unitPrice === 'number' ? item.unitPrice : 0
+  const base = unitPrice * quantityPerMonth
   // Add a simple dispensing fee of $5
   const dispensing = 5
   return base + dispensing
