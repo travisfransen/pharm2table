@@ -1,28 +1,41 @@
-import Link from 'next/link'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
+import Link from "next/link";
+import { TrustStrip } from "../components/TrustStrip";
 
 export default function Home() {
   return (
-    <div>
-      <Header />
-      <main className="max-w-4xl mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-4">pharm2table</h1>
-        <p className="mb-6 text-gray-700">Find the best pharmacy pricing and compare vendors for treatments and tools.</p>
+    <main className="mx-auto max-w-5xl px-6 py-12">
+      <header className="space-y-4">
+        <h1 className="text-4xl font-semibold">Pharm 2 Table</h1>
+        <p className="text-lg text-gray-700">
+          Compare legitimate direct-to-consumer healthcare options with clear tradeoffs and pricing logic.
+        </p>
 
-        <section className="grid gap-4 sm:grid-cols-2">
-          <Link href="/conditions" className="block p-4 border rounded hover:shadow">
-            <h2 className="text-xl font-semibold">Conditions</h2>
-            <p className="text-sm text-gray-600">Browse condition pathways and tools (e.g., weight loss).</p>
+        <div className="flex gap-3">
+          <Link className="rounded-md bg-black px-4 py-2 text-white" href="/conditions">
+            Find care by condition
           </Link>
+          <Link className="rounded-md border px-4 py-2" href="/conditions/weight-loss">
+            Start with weight loss
+          </Link>
+        </div>
 
-          <Link href="/vendors/example-vendor" className="block p-4 border rounded hover:shadow">
-            <h2 className="text-xl font-semibold">Example Vendor</h2>
-            <p className="text-sm text-gray-600">See a vendor profile and price table.</p>
-          </Link>
-        </section>
-      </main>
-      <Footer />
-    </div>
-  )
+        <TrustStrip />
+      </header>
+
+      <section className="mt-12 grid gap-4 md:grid-cols-3">
+        <Link href="/conditions/weight-loss/tools/cost-calculator" className="rounded-lg border p-4 hover:bg-gray-50">
+          <h2 className="font-medium">True Cost Calculator</h2>
+          <p className="text-sm text-gray-700">Estimate real 3/6/12-month costs with dose changes.</p>
+        </Link>
+        <Link href="/conditions/weight-loss/tools/price-explainer" className="rounded-lg border p-4 hover:bg-gray-50">
+          <h2 className="font-medium">Why is this more expensive?</h2>
+          <p className="text-sm text-gray-700">Break down where the extra dollars go.</p>
+        </Link>
+        <Link href="/conditions/weight-loss/tools/cheapest-path" className="rounded-lg border p-4 hover:bg-gray-50">
+          <h2 className="font-medium">Cheapest Viable Path Finder</h2>
+          <p className="text-sm text-gray-700">Cheapest option that still fits your constraints.</p>
+        </Link>
+      </section>
+    </main>
+  );
 }
